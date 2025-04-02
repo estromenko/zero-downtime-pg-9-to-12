@@ -1,0 +1,17 @@
+services:
+  postgres9:
+    image: postgres-pglogical:9.5
+    build:
+      context: .
+      dockerfile: ./postgresql-95-pglogical.Dockerfile
+    volumes:
+      - "./pg_hba.conf:/etc/postgresql/pg_hba.conf"
+  postgres12:
+    image: postgres:12.22-bullseye
+    command: postgres -c 'config_file=/etc/postgresql/postgresql.conf'
+    environment:
+      POSTGRES_PASSWORD: secret
+      DEBIAN_FRONTEND: noninteractive
+    volumes:
+      - "./postgresql.conf:/etc/postgresql/postgresql.conf"
+      - "./pg_hba.conf:/etc/postgresql/pg_hba.conf"
