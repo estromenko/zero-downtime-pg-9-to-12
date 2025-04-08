@@ -15,3 +15,12 @@ services:
     volumes:
       - "./postgresql.conf:/etc/postgresql/postgresql.conf"
       - "./pg_hba.conf:/etc/postgresql/pg_hba.conf"
+  haproxy:
+    image: haproxy:2.3
+    command: haproxy -f /usr/local/etc/haproxy/haproxy.cfg
+    volumes:
+      - "./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg"
+    ports:
+      - "7000:7000"
+      - "5000:5000"
+      - "5001:5001"
